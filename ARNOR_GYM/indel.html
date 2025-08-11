@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARNOR GYM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #333;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #764ba2;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .auth-switch p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .auth-switch a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .auth-switch a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .form-group.slide-in {
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                max-height: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                max-height: 100px;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group.slide-out {
+            animation: slideOut 0.3s ease-in forwards;
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                max-height: 100px;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                max-height: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            white-space: pre-line;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>ARNOR GYM</h1>
+        </div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">使用者帳號:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">使用者密碼:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                <label for="confirmPassword">確認密碼:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+            </div>
+            
+            <div class="form-group" id="emailGroup" style="display: none;">
+                <label for="email">電子信箱:</label>
+                <input type="email" id="email" name="email">
+            </div>
+            
+            <button type="submit" class="login-btn" id="submitBtn">登入</button>
+        </form>
+        
+        <div class="auth-switch">
+            <p id="switchText">還沒有帳號？ <a href="#" onclick="toggleAuthMode()">立即註冊</a></p>
+        </div>
+        
+        <div class="forgot-password">
+            <a href="#" onclick="handleForgotPassword()">忘記密碼？</a>
+        </div>
+    </div>
+
+    <script>
+        // 預設的使用者帳號資料和註冊用戶儲存
+        const defaultUsers = {
+            'admin': 'password123',
+            'user1': '123456',
+            'guest': 'guest123',
+            'arnor': 'gym2024'
+        };
+
+        // 從 sessionStorage 載入已註冊用戶
+        function loadUsers() {
+            const savedUsers = sessionStorage.getItem('registeredUsers');
+            const registeredUsers = savedUsers ? JSON.parse(savedUsers) : {};
+            return { ...defaultUsers, ...registeredUsers };
+        }
+
+        // 儲存新註冊用戶
+        function saveUser(username, password, email) {
+            const savedUsers = sessionStorage.getItem('registeredUsers');
+            const registeredUsers = savedUsers ? JSON.parse(savedUsers) : {};
+            
+            registeredUsers[username] = password;
+            
+            // 同時儲存用戶詳細資訊
+            const userDetails = sessionStorage.getItem('userDetails');
+            const details = userDetails ? JSON.parse(userDetails) : {};
+            details[username] = {
+                email: email,
+                registerTime: new Date().toISOString()
+            };
+            
+            sessionStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+            sessionStorage.setItem('userDetails', JSON.stringify(details));
+        }
+
+        let isRegisterMode = false;
+
+        function toggleAuthMode() {
+            isRegisterMode = !isRegisterMode;
+            const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+            const emailGroup = document.getElementById('emailGroup');
+            const submitBtn = document.getElementById('submitBtn');
+            const switchText = document.getElementById('switchText');
+            const forgotPassword = document.querySelector('.forgot-password');
+
+            if (isRegisterMode) {
+                // 切換到註冊模式
+                confirmPasswordGroup.style.display = 'block';
+                emailGroup.style.display = 'block';
+                confirmPasswordGroup.classList.add('slide-in');
+                emailGroup.classList.add('slide-in');
+                
+                submitBtn.textContent = '註冊';
+                submitBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+                switchText.innerHTML = '已有帳號？ <a href="#" onclick="toggleAuthMode()">立即登入</a>';
+                forgotPassword.style.display = 'none';
+                
+                document.getElementById('confirmPassword').required = true;
+                document.getElementById('email').required = true;
+                
+            } else {
+                // 切換到登入模式
+                confirmPasswordGroup.classList.add('slide-out');
+                emailGroup.classList.add('slide-out');
+                
+                setTimeout(() => {
+                    confirmPasswordGroup.style.display = 'none';
+                    emailGroup.style.display = 'none';
+                    confirmPasswordGroup.classList.remove('slide-in', 'slide-out');
+                    emailGroup.classList.remove('slide-in', 'slide-out');
+                }, 300);
+                
+                submitBtn.textContent = '登入';
+                submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                switchText.innerHTML = '還沒有帳號？ <a href="#" onclick="toggleAuthMode()">立即註冊</a>';
+                forgotPassword.style.display = 'block';
+                
+                document.getElementById('confirmPassword').required = false;
+                document.getElementById('email').required = false;
+            }
+            
+            // 清空所有輸入框
+            document.getElementById('loginForm').reset();
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('submitBtn');
+            
+            if (!username || !password) {
+                showMessage('請輸入完整資訊！', 'error');
+                return;
+            }
+
+            if (isRegisterMode) {
+                handleRegister(username, password, btn);
+            } else {
+                handleLogin(username, password, btn);
+            }
+        });
+
+        function handleRegister(username, password, btn) {
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const email = document.getElementById('email').value.trim();
+            
+            // 驗證註冊資料
+            if (password !== confirmPassword) {
+                showMessage('密碼確認不一致！', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showMessage('密碼長度至少需要6個字元！', 'error');
+                return;
+            }
+            
+            if (!email || !validateEmail(email)) {
+                showMessage('請輸入有效的電子信箱！', 'error');
+                return;
+            }
+            
+            const users = loadUsers();
+            if (users[username]) {
+                showMessage('此帳號已存在！請選擇其他帳號名稱', 'error');
+                return;
+            }
+            
+            // 開始註冊流程
+            btn.style.background = 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)';
+            btn.textContent = '註冊中...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                // 儲存新用戶
+                saveUser(username, password, email);
+                
+                btn.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+                btn.textContent = '註冊成功！';
+                
+                showMessage(`註冊成功！歡迎加入 ARNOR GYM\n帳號: ${username}\n信箱: ${email}`, 'success');
+                
+                setTimeout(() => {
+                    // 自動切換到登入模式
+                    toggleAuthMode();
+                    document.getElementById('username').value = username;
+                    showMessage('請使用新帳號登入', 'info');
+                }, 2000);
+                
+            }, 1500);
+        }
+
+        function handleLogin(username, password, btn) {
+            const users = loadUsers();
+            
+            // 添加登入動畫效果
+            btn.style.background = 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)';
+            btn.textContent = '驗證中...';
+            btn.disabled = true;
+            
+            // 模擬登入驗證過程
+            setTimeout(() => {
+                if (users[username] && users[username] === password) {
+                    // 登入成功
+                    btn.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+                    btn.textContent = '登入成功！';
+                    
+                    showMessage(`歡迎 ${username}！正在進入系統...`, 'success');
+                    
+                    // 儲存登入狀態
+                    sessionStorage.setItem('loggedIn', 'true');
+                    sessionStorage.setItem('username', username);
+                    sessionStorage.setItem('loginTime', new Date().toISOString());
+                    
+                    // 跳轉到訓練選單頁面
+                    setTimeout(() => {
+                        showTrainingMenu();
+                    }, 1000);
+                    
+                } else {
+                    // 登入失敗
+                    btn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+                    btn.textContent = '登入失敗';
+                    
+                    showMessage('帳號或密碼錯誤！請重新輸入', 'error');
+                    
+                    setTimeout(() => {
+                        btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                        btn.textContent = '登入';
+                        btn.disabled = false;
+                        document.getElementById('password').value = '';
+                        document.getElementById('password').focus();
+                    }, 2000);
+                }
+            }, 1500);
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        function showMessage(message, type) {
+            // 移除舊的訊息
+            const oldMsg = document.querySelector('.message');
+            if (oldMsg) oldMsg.remove();
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            
+            const container = document.querySelector('.login-container');
+            container.appendChild(messageDiv);
+            
+            // 3秒後自動移除訊息
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 3000);
+        }
+        
+        function showTrainingMenu() {
+            document.body.innerHTML = `
+                <button class="back-btn" onclick="logout()">← 登出</button>
+                
+                <div class="container">
+                    <div class="header">
+                        <h1>ARNOR GYM</h1>
+                        <div class="welcome-msg">歡迎回來，${sessionStorage.getItem('username')}！</div>
+                    </div>
+                    
+                    <div class="menu-grid">
+                        <div class="menu-card chest-card" onclick="openWorkout('chest')">
+                            <span class="icon">💪</span>
+                            <h2>練胸</h2>
+                            <p class="description">胸肌訓練計畫<br>打造完美胸型</p>
+                        </div>
+                        
+                        <div class="menu-card back-card" onclick="openWorkout('back')">
+                            <span class="icon">🏋️</span>
+                            <h2>練背</h2>
+                            <p class="description">背部肌群強化<br>改善體態線條</p>
+                        </div>
+                        
+                        <div class="menu-card legs-card" onclick="openWorkout('legs')">
+                            <span class="icon">🦵</span>
+                            <h2>練腿</h2>
+                            <p class="description">下肢力量訓練<br>提升整體爆發力</p>
+                        </div>
+                        
+                        <div class="menu-card record-card" onclick="openWorkout('record')">
+                            <span class="icon">📊</span>
+                            <h2>運動紀錄</h2>
+                            <p class="description">追蹤訓練進度 • 記錄健身成果 • 分析運動數據</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 訓練詳情模態框 -->
+                <div class="workout-modal" id="workoutModal">
+                    <div class="modal-content">
+                        <button class="close-btn" onclick="closeModal()">&times;</button>
+                        <h2 id="modalTitle">訓練計畫</h2>
+                        <div id="modalContent"></div>
+                    </div>
+                </div>
+            `;
+            
+            // 添加訓練選單的樣式
+            addTrainingMenuStyles();
+            // 添加訓練選單的功能
+            addTrainingMenuFunctions();
+        }
+        
+        function addTrainingMenuStyles() {
+            const style = document.createElement('style');
+            style.textContent = `
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(10px);
+                    border-radius: 20px;
+                    padding: 40px;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                }
+
+                .header {
+                    text-align: center;
+                    margin-bottom: 50px;
+                }
+
+                .header h1 {
+                    font-size: 3rem;
+                    font-weight: 900;
+                    color: #333;
+                    letter-spacing: 3px;
+                    margin-bottom: 10px;
+                }
+
+                .header::after {
+                    content: '';
+                    width: 200px;
+                    height: 4px;
+                    background: linear-gradient(90deg, #667eea, #764ba2);
+                    display: block;
+                    margin: 20px auto;
+                    border-radius: 2px;
+                }
+
+                .welcome-msg {
+                    color: #667eea;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    margin-top: 10px;
+                }
+
+                .menu-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 30px;
+                    margin-bottom: 40px;
+                }
+
+                .menu-card {
+                    background: #fff;
+                    border: 3px solid #e1e5e9;
+                    border-radius: 15px;
+                    padding: 40px 30px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .menu-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+                    transition: left 0.5s ease;
+                }
+
+                .menu-card:hover::before {
+                    left: 100%;
+                }
+
+                .menu-card:hover {
+                    transform: translateY(-10px) scale(1.02);
+                    border-color: #667eea;
+                    box-shadow: 0 25px 50px rgba(102, 126, 234, 0.2);
+                }
+
+                .menu-card h2 {
+                    font-size: 2.5rem;
+                    color: #333;
+                    font-weight: 700;
+                    margin-bottom: 20px;
+                    position: relative;
+                    z-index: 1;
+                }
+
+                .menu-card .icon {
+                    font-size: 4rem;
+                    margin-bottom: 20px;
+                    display: block;
+                    opacity: 0.7;
+                    transition: all 0.3s ease;
+                }
+
+                .menu-card:hover .icon {
+                    opacity: 1;
+                    transform: scale(1.1);
+                }
+
+                .chest-card { border-left: 5px solid #e74c3c; }
+                .back-card { border-left: 5px solid #3498db; }
+                .legs-card { border-left: 5px solid #2ecc71; }
+
+                .record-card {
+                    grid-column: 1 / -1;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    border: none;
+                    margin-top: 20px;
+                }
+
+                .record-card h2 {
+                    color: white;
+                    font-size: 2rem;
+                }
+
+                .description {
+                    color: #666;
+                    font-size: 1rem;
+                    margin-top: 15px;
+                    line-height: 1.5;
+                    position: relative;
+                    z-index: 1;
+                }
+
+                .record-card .description {
+                    color: rgba(255, 255, 255, 0.9);
+                }
+
+                .back-btn {
+                    position: fixed;
+                    top: 30px;
+                    left: 30px;
+                    background: rgba(255, 255, 255, 0.9);
+                    border: none;
+                    padding: 12px 20px;
+                    border-radius: 25px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                }
+
+                .back-btn:hover {
+                    background: #fff;
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                }
+
+                .workout-modal {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.8);
+                    z-index: 1000;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .modal-content {
+                    background: white;
+                    border-radius: 20px;
+                    padding: 40px;
+                    max-width: 600px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    position: relative;
+                }
+
+                .close-btn {
+                    position: absolute;
+                    top: 15px;
+                    right: 20px;
+                    background: none;
+                    border: none;
+                    font-size: 30px;
+                    cursor: pointer;
+                    color: #999;
+                }
+
+                .exercise-list {
+                    list-style: none;
+                    margin-top: 20px;
+                }
+
+                .exercise-list li {
+                    padding: 15px;
+                    margin: 10px 0;
+                    background: #f8f9fa;
+                    border-radius: 10px;
+                    border-left: 4px solid #667eea;
+                    transition: all 0.3s ease;
+                }
+
+                .exercise-list li:hover {
+                    background: #e9ecef;
+                    transform: translateX(5px);
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function addTrainingMenuFunctions() {
+            const workoutPlans = {
+                chest: {
+                    title: '胸肌訓練計畫',
+                    exercises: [
+                        '平板臥推 - 4組 x 8-10次',
+                        '上斜臥推 - 4組 x 8-10次',
+                        '啞鈴飛鳥 - 3組 x 12-15次',
+                        '雙槓撐體 - 3組 x 10-12次',
+                        '胸肌夾胸 - 3組 x 12-15次',
+                        '俯臥撐 - 3組 x 15-20次'
+                    ]
+                },
+                back: {
+                    title: '背部訓練計畫',
+                    exercises: [
+                        '引體向上 - 4組 x 6-8次',
+                        '槓鈴划船 - 4組 x 8-10次',
+                        '坐姿下拉 - 4組 x 10-12次',
+                        '單臂啞鈴划船 - 3組 x 10-12次',
+                        '反向飛鳥 - 3組 x 12-15次',
+                        '死蟲式 - 3組 x 15次'
+                    ]
+                },
+                legs: {
+                    title: '腿部訓練計畫',
+                    exercises: [
+                        '深蹲 - 4組 x 10-12次',
+                        '硬舉 - 4組 x 8-10次',
+                        '腿舉 - 4組 x 12-15次',
+                        '保加利亞分腿蹲 - 3組 x 10次/腿',
+                        '腿彎舉 - 3組 x 12-15次',
+                        '小腿提踵 - 4組 x 15-20次'
+                    ]
+                },
+                record: {
+                    title: '運動紀錄系統',
+                    exercises: [
+                        '今日訓練記錄 - 查看當天完成的運動',
+                        '週訓練統計 - 本週訓練頻率和強度',
+                        '月進度報告 - 月度體能提升分析',
+                        '個人最佳紀錄 - PR記錄追蹤',
+                        '體重變化圖表 - 體重管理追蹤',
+                        '訓練計畫調整 - 根據進度優化計畫'
+                    ]
+                }
+            };
+
+            window.openWorkout = function(type) {
+                const modal = document.getElementById('workoutModal');
+                const title = document.getElementById('modalTitle');
+                const content = document.getElementById('modalContent');
+                
+                const plan = workoutPlans[type];
+                title.textContent = plan.title;
+                
+                const exerciseList = document.createElement('ul');
+                exerciseList.className = 'exercise-list';
+                
+                plan.exercises.forEach((exercise, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = exercise;
+                    li.style.animationDelay = (index * 0.1) + 's';
+                    exerciseList.appendChild(li);
+                });
+                
+                content.innerHTML = '';
+                content.appendChild(exerciseList);
+                
+                modal.style.display = 'flex';
+            };
+
+            window.closeModal = function() {
+                const modal = document.getElementById('workoutModal');
+                modal.style.display = 'none';
+            };
+
+            window.logout = function() {
+                if (confirm('確定要登出嗎？')) {
+                    sessionStorage.removeItem('loggedIn');
+                    sessionStorage.removeItem('username');
+                    sessionStorage.removeItem('loginTime');
+                    location.reload();
+                }
+            };
+
+            // 點擊模態框外部關閉
+            window.onclick = function(event) {
+                const modal = document.getElementById('workoutModal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            };
+
+            // 鍵盤ESC關閉模態框
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        }
+        
+        function handleForgotPassword() {
+            showMessage('測試帳號:\nadmin/password123\nuser1/123456\nguest/guest123\narnor/gym2024', 'info');
+        }
+
+        // 檢查是否已經登入
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('loggedIn') === 'true') {
+                showTrainingMenu();
+            }
+        });
+
+        // 添加輸入框焦點效果
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

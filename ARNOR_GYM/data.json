@@ -1,0 +1,301 @@
+{
+  "users": {
+    "admin": {
+      "password": "password123",
+      "email": "admin@arnorgym.com",
+      "role": "administrator",
+      "profile": {
+        "firstName": "系統",
+        "lastName": "管理員",
+        "phone": "02-1234-5678",
+        "membershipType": "unlimited",
+        "joinDate": "2024-01-01",
+        "lastLogin": null
+      },
+      "preferences": {
+        "favoriteWorkouts": ["chest", "back", "legs"],
+        "notifications": true,
+        "language": "zh-TW"
+      }
+    },
+    "user1": {
+      "password": "123456",
+      "email": "user1@example.com",
+      "role": "member",
+      "profile": {
+        "firstName": "小明",
+        "lastName": "陳",
+        "phone": "0912-345-678",
+        "membershipType": "monthly",
+        "joinDate": "2024-03-15",
+        "lastLogin": null
+      },
+      "preferences": {
+        "favoriteWorkouts": ["chest", "back"],
+        "notifications": true,
+        "language": "zh-TW"
+      }
+    },
+    "guest": {
+      "password": "guest123",
+      "email": "guest@arnorgym.com",
+      "role": "guest",
+      "profile": {
+        "firstName": "訪客",
+        "lastName": "用戶",
+        "phone": "",
+        "membershipType": "trial",
+        "joinDate": "2024-08-01",
+        "lastLogin": null
+      },
+      "preferences": {
+        "favoriteWorkouts": ["legs"],
+        "notifications": false,
+        "language": "zh-TW"
+      }
+    },
+    "arnor": {
+      "password": "gym2024",
+      "email": "arnor@arnorgym.com",
+      "role": "trainer",
+      "profile": {
+        "firstName": "阿諾",
+        "lastName": "教練",
+        "phone": "0987-654-321",
+        "membershipType": "staff",
+        "joinDate": "2023-12-01",
+        "lastLogin": null
+      },
+      "preferences": {
+        "favoriteWorkouts": ["chest", "back", "legs"],
+        "notifications": true,
+        "language": "zh-TW"
+      }
+    }
+  },
+  "membershipTypes": {
+    "trial": {
+      "name": "體驗會員",
+      "duration": "7天",
+      "price": 0,
+      "features": ["基本設施使用", "1次免費諮詢"]
+    },
+    "monthly": {
+      "name": "月費會員",
+      "duration": "30天",
+      "price": 1500,
+      "features": ["無限制使用設施", "團體課程", "個人置物櫃"]
+    },
+    "yearly": {
+      "name": "年費會員",
+      "duration": "365天",
+      "price": 15000,
+      "features": ["無限制使用設施", "所有團體課程", "個人置物櫃", "營養諮詢", "免費毛巾服務"]
+    },
+    "unlimited": {
+      "name": "無限會員",
+      "duration": "無限制",
+      "price": 0,
+      "features": ["所有設施和服務", "管理權限"]
+    },
+    "staff": {
+      "name": "員工帳號",
+      "duration": "無限制",
+      "price": 0,
+      "features": ["員工專用設施", "教練課程管理"]
+    }
+  },
+  "workoutPlans": {
+    "chest": {
+      "name": "胸肌訓練",
+      "category": "上半身",
+      "difficulty": "中等",
+      "estimatedTime": "45-60分鐘",
+      "exercises": [
+        {
+          "name": "平板臥推",
+          "sets": 4,
+          "reps": "8-10",
+          "restTime": "90秒",
+          "equipment": "槓鈴",
+          "tips": "保持肩胛骨收緊，控制下降速度"
+        },
+        {
+          "name": "上斜臥推",
+          "sets": 4,
+          "reps": "8-10",
+          "restTime": "90秒",
+          "equipment": "啞鈴或槓鈴",
+          "tips": "角度調整為30-45度"
+        },
+        {
+          "name": "啞鈴飛鳥",
+          "sets": 3,
+          "reps": "12-15",
+          "restTime": "60秒",
+          "equipment": "啞鈴",
+          "tips": "保持肘部微彎，感受胸肌伸展"
+        },
+        {
+          "name": "雙槓撐體",
+          "sets": 3,
+          "reps": "10-12",
+          "restTime": "60秒",
+          "equipment": "雙槓",
+          "tips": "身體前傾，專注胸肌發力"
+        },
+        {
+          "name": "胸肌夾胸",
+          "sets": 3,
+          "reps": "12-15",
+          "restTime": "60秒",
+          "equipment": "拉力器",
+          "tips": "保持肘部稍彎，緩慢控制"
+        },
+        {
+          "name": "俯臥撑",
+          "sets": 3,
+          "reps": "15-20",
+          "restTime": "45秒",
+          "equipment": "無",
+          "tips": "保持核心穩定，全程控制"
+        }
+      ]
+    },
+    "back": {
+      "name": "背部訓練",
+      "category": "上半身",
+      "difficulty": "中等",
+      "estimatedTime": "50-65分鐘",
+      "exercises": [
+        {
+          "name": "引體向上",
+          "sets": 4,
+          "reps": "6-8",
+          "restTime": "120秒",
+          "equipment": "引體向上器",
+          "tips": "使用背部肌肉拉起，避免擺動"
+        },
+        {
+          "name": "槓鈴划船",
+          "sets": 4,
+          "reps": "8-10",
+          "restTime": "90秒",
+          "equipment": "槓鈴",
+          "tips": "保持背部挺直，拉至下腹部"
+        },
+        {
+          "name": "坐姿下拉",
+          "sets": 4,
+          "reps": "10-12",
+          "restTime": "75秒",
+          "equipment": "下拉機",
+          "tips": "肩胛骨下沉，拉至胸前"
+        },
+        {
+          "name": "單臂啞鈴划船",
+          "sets": 3,
+          "reps": "10-12",
+          "restTime": "60秒",
+          "equipment": "啞鈴",
+          "tips": "每邊輪流進行，感受背闊肌收縮"
+        },
+        {
+          "name": "反向飛鳥",
+          "sets": 3,
+          "reps": "12-15",
+          "restTime": "60秒",
+          "equipment": "啞鈴",
+          "tips": "專注後三角肌和中斜方肌"
+        },
+        {
+          "name": "死蟲式",
+          "sets": 3,
+          "reps": "15",
+          "restTime": "45秒",
+          "equipment": "無",
+          "tips": "保持核心穩定，控制動作"
+        }
+      ]
+    },
+    "legs": {
+      "name": "腿部訓練",
+      "category": "下半身",
+      "difficulty": "高",
+      "estimatedTime": "55-70分鐘",
+      "exercises": [
+        {
+          "name": "深蹲",
+          "sets": 4,
+          "reps": "10-12",
+          "restTime": "120秒",
+          "equipment": "槓鈴",
+          "tips": "膝蓋不超過腳尖，保持背部挺直"
+        },
+        {
+          "name": "硬舉",
+          "sets": 4,
+          "reps": "8-10",
+          "restTime": "120秒",
+          "equipment": "槓鈴",
+          "tips": "髖關節主導動作，保持槓鈴貼身"
+        },
+        {
+          "name": "腿舉",
+          "sets": 4,
+          "reps": "12-15",
+          "restTime": "90秒",
+          "equipment": "腿舉機",
+          "tips": "控制下降深度，避免膝蓋內扣"
+        },
+        {
+          "name": "保加利亞分腿蹲",
+          "sets": 3,
+          "reps": "10/腿",
+          "restTime": "75秒",
+          "equipment": "啞鈴",
+          "tips": "重心放在前腿，保持平衡"
+        },
+        {
+          "name": "腿彎舉",
+          "sets": 3,
+          "reps": "12-15",
+          "restTime": "60秒",
+          "equipment": "腿彎舉機",
+          "tips": "專注股後肌群，控制速度"
+        },
+        {
+          "name": "小腿提踵",
+          "sets": 4,
+          "reps": "15-20",
+          "restTime": "45秒",
+          "equipment": "小腿機",
+          "tips": "全程幅度，頂峰收縮"
+        }
+      ]
+    }
+  },
+  "gymSettings": {
+    "name": "ARNOR GYM",
+    "address": "台灣桃園市中壢區中大路123號",
+    "phone": "03-1234-5678",
+    "email": "info@arnorgym.com",
+    "hours": {
+      "weekdays": "06:00-23:00",
+      "weekends": "07:00-22:00",
+      "holidays": "08:00-21:00"
+    },
+    "facilities": [
+      "重量訓練區",
+      "有氧運動區", 
+      "團體教室",
+      "桑拿室",
+      "淋浴間",
+      "置物櫃",
+      "休息區",
+      "營養補給站"
+    ]
+  },
+  "version": "1.0.0",
+  "lastUpdated": "2024-08-11T00:00:00Z"
+}
